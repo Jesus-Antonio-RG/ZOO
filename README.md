@@ -1,6 +1,0 @@
-Habitat(nombre='Sabana', clima='Cálido seco')
-Habitat(nombre='Selva', clima='Húmedo tropical')
-Habitat(nombre='Montaña', clima='Frío')
-Habitat(nombre='Costa fría', clima='Frío oceánico')
-Habitat(nombre='Desierto rocoso', clima='Muy seco')
-Habitat(nombre='Pradera', clima='Templado seco')
