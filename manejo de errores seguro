@@ -1,0 +1,25 @@
+# delete.py  (feature/delete-06)
+# Objetivo: manejo robusto de errores, sin romper el flujo.
+
+from typing import List, Tuple, Optional, Any
+
+def _coincide_nombre(obj, nombre: str) -> bool:
+    try:
+        if hasattr(obj, "nombre"):
+            return (obj.nombre or "").strip().lower() == nombre.strip().lower()
+        return (str(obj) or "").strip().lower() == nombre.strip().lower()
+    except Exception:
+        return False
+
+def eliminar_animal(animales: List, nombre: str) -> Tuple[List, bool, Optional[Any]]:
+    try:
+        for i, a in enumerate(list(animales)):
+            if _coincide_nombre(a, nombre):
+                eliminado = animales.pop(i)
+                print(f"✅ Eliminado: {getattr(eliminado, 'nombre', str(eliminado))}")
+                return animales, True, eliminado
+        print(f"⚠️  '{nombre}' no estaba en la lista.")
+        return animales, False, None
+    except Exception as e:
+        print(f"❌ Error al eliminar '{nombre}': {e}")
+        return animales, False, None
