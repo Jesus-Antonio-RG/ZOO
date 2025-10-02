@@ -1,0 +1,11 @@
+# delete.py  (feature/delete-01)
+# Objetivo: crear el esqueleto de la función de borrado.
+
+from typing import List, Tuple
+
+def eliminar_animal(animales: List, nombre: str) -> Tuple[List, bool]:
+    """
+    Elimina un animal por nombre.
+    Por ahora es un esqueleto: siempre regresa (lista_original, False).
+    """
+    return animales, False

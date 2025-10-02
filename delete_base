@@ -1,9 +1,0 @@
-# delete_base.py
-
-def eliminar_animal(animales, nombre):
-    """
-    Elimina un animal de la lista.
-    :param animales: lista de objetos Animal
-    :param nombre: nombre del animal a eliminar
-    """
-    pass  # Se implementará en siguientes ramas
