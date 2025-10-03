@@ -1,0 +1,55 @@
+# delete.py  (feature/delete-09)
+# Objetivo: además de hábitat, limpiar dependencias de alimentos (p. ej. dict por animal_id).
+
+from typing import List, Tuple, Optional, Any, Union, Dict
+
+def _match(obj, clave: Union[int, str]) -> bool:
+    try:
+        if isinstance(clave, int) and hasattr(obj, "id"):
+            return obj.id == clave
+        if isinstance(clave, str):
+            if hasattr(obj, "nombre"):
+                return (obj.nombre or "").strip().lower() == clave.strip().lower()
+            return (str(obj) or "").strip().lower() == clave.strip().lower()
+    except Exception:
+        pass
+    return False
+
+def eliminar_animal(
+    animales: List,
+    clave: Union[int, str],
+    habitats: Optional[Dict] = None,
+    alimentos_por_animal: Optional[Dict[int, list]] = None
+) -> Tuple[List, bool, Optional[Any]]:
+
+    # Quitar de lista general
+    eliminado = None
+    for i, a in enumerate(list(animales)):
+        if _match(a, clave):
+            eliminado = animales.pop(i)
+            break
+    if eliminado is None:
+        print(f"⚠️  No se encontró '{clave}'.")
+        return animales, False, None
+
+    # Limpiar hábitat
+    if habitats and hasattr(eliminado, "habitat_id"):
+        h = habitats.get(getattr(eliminado, "habitat_id", None))
+        if h and hasattr(h, "animales"):
+            try:
+                h.animales = [x for x in h.animales if x is not eliminado]
+                print(f"🏞️  Limpieza en hábitat {getattr(h, 'nombre', h)}.")
+            except Exception:
+                pass
+
+    # Limpiar alimentos
+    if alimentos_por_animal and hasattr(eliminado, "id"):
+        try:
+            removed = alimentos_por_animal.pop(eliminado.id, None)
+            if removed is not None:
+                print(f"🍽️  Eliminadas {len(removed)} referencias de alimento del animal.")
+        except Exception:
+            pass
+
+    print(f"✅ Eliminado: {getattr(eliminado, 'nombre', str(eliminado))}")
+    return animales, True, eliminado

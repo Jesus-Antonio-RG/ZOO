@@ -1,0 +1,18 @@
+# delete.py  (feature/delete-04)
+# Objetivo: eliminar realmente el animal de la lista.
+
+from typing import List, Tuple
+
+def _coincide_nombre(obj, nombre: str) -> bool:
+    if hasattr(obj, "nombre"):
+        return (obj.nombre or "").strip().lower() == nombre.strip().lower()
+    return (str(obj) or "").strip().lower() == nombre.strip().lower()
+
+def eliminar_animal(animales: List, nombre: str) -> Tuple[List, bool]:
+    for i, a in enumerate(list(animales)):  # copiamos para evitar problemas al iterar
+        if _coincide_nombre(a, nombre):
+            animales.pop(i)
+            print(f"🗑️  '{nombre}' eliminado de la lista.")
+            return animales, True
+    print(f"⚠️  '{nombre}' no estaba en la lista.")
+    return animales, False

@@ -1,0 +1,26 @@
+# delete.py  (feature/delete-07)
+# Objetivo: admitir borrado por id o por nombre (clase Animal con .id y .nombre).
+
+from typing import List, Tuple, Optional, Any, Union
+
+def _match(obj, clave: Union[int, str]) -> bool:
+    try:
+        if isinstance(clave, int) and hasattr(obj, "id"):
+            return obj.id == clave
+        if isinstance(clave, str):
+            if hasattr(obj, "nombre"):
+                return (obj.nombre or "").strip().lower() == clave.strip().lower()
+            return (str(obj) or "").strip().lower() == clave.strip().lower()
+    except Exception:
+        pass
+    return False
+
+def eliminar_animal(animales: List, clave: Union[int, str]) -> Tuple[List, bool, Optional[Any]]:
+    for i, a in enumerate(list(animales)):
+        if _match(a, clave):
+            eliminado = animales.pop(i)
+            etiqueta = getattr(eliminado, "nombre", str(eliminado))
+            print(f"✅ Eliminado: {etiqueta}")
+            return animales, True, eliminado
+    print(f"⚠️  No se encontró '{clave}'.")
+    return animales, False, None
