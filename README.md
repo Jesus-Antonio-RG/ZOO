@@ -1,2 +1,2 @@
-id=A1, animal=León, nombre='Simba', edad=5, categoria=MAMIFERO, habitat='Sabana'
+
 
