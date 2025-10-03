@@ -1,2 +1,1 @@
-Dra. Ruiz (esp. Fauna salvaje)
-Dr. López (esp. Reptiles)
+
