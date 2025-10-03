@@ -1,0 +1,17 @@
+# delete.py  (feature/delete-03)
+# Objetivo: validar existencia y devolver una razón clara.
+
+from typing import List, Tuple
+
+def _coincide_nombre(obj, nombre: str) -> bool:
+    if hasattr(obj, "nombre"):
+        return (obj.nombre or "").strip().lower() == nombre.strip().lower()
+    return (str(obj) or "").strip().lower() == nombre.strip().lower()
+
+def eliminar_animal(animales: List, nombre: str) -> Tuple[List, bool]:
+    existe = any(_coincide_nombre(a, nombre) for a in animales)
+    if not existe:
+        print(f"⚠️  No se encontró '{nombre}'.")
+        return animales, False
+    print(f"✔️  Se encontró '{nombre}'. Listo para eliminar.")
+    return animales, True

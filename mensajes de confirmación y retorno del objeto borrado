@@ -1,0 +1,18 @@
+# delete.py  (feature/delete-05)
+# Objetivo: devolver también el objeto eliminado (si aplica).
+
+from typing import List, Tuple, Optional, Any
+
+def _coincide_nombre(obj, nombre: str) -> bool:
+    if hasattr(obj, "nombre"):
+        return (obj.nombre or "").strip().lower() == nombre.strip().lower()
+    return (str(obj) or "").strip().lower() == nombre.strip().lower()
+
+def eliminar_animal(animales: List, nombre: str) -> Tuple[List, bool, Optional[Any]]:
+    for i, a in enumerate(list(animales)):
+        if _coincide_nombre(a, nombre):
+            eliminado = animales.pop(i)
+            print(f"✅ Eliminado: {getattr(eliminado, 'nombre', str(eliminado))}")
+            return animales, True, eliminado
+    print(f"⚠️  '{nombre}' no estaba en la lista.")
+    return animales, False, None
